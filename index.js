@@ -19,9 +19,6 @@ mongoose.connect(process.env.DB_CONNECT, {
 .catch(err => console.error('Failed to connect to MongoDB', err));
 
 // Import job-related functions
-const {applyjob } = require('./utils/applyjob');
-app.post('/apply-job',applyjob);
-
 const { addJob} = require('./utils/create-job');
 app.post('/add-job', addJob);
 

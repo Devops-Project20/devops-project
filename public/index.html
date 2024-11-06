@@ -6,35 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobSpotter</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <style>
-        /* Modal styling */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 300px;
-            text-align: center;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
     <!-- Bootstrap CSS (required for modal functionality) -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -46,11 +17,13 @@
             <input type="text" id="keyword" placeholder="Enter Keywords">
             <select id="classification">
                 <option>Any Classification</option>
+                <!-- Add other options here -->
             </select>
             <button onclick="searchJobs()">Search</button>
 
             <!-- Button to trigger modal -->
             <button class="btn btn-primary" data-toggle="modal" data-target="#resourceModal">Add New Job</button>
+
         </div>
     </header>
 
@@ -58,25 +31,6 @@
         <!-- Job listings will be displayed here -->
     </div>
 
-    <!-- Apply Job Modal -->
-    <div id="applyJobModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Apply for Job</h2>
-            <form id="applyForm">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" required>
-
-                <label for="education">Education:</label>
-                <input type="text" id="education" name="education" required>
-
-                <label for="phone">Phone:</label>
-                <input type="tel" id="phone" name="phone" required>
-
-                <button type="submit">Submit Application</button>
     <!-- Modal for updating job listing -->
     <div id="updateJobModal" class="modal">
         <div class="modal-content">
@@ -253,21 +207,6 @@
             });
         }
 
-        function applyJob(jobId) {
-            // Show the modal
-            document.getElementById("applyJobModal").style.display = "block";
-        }
-
-        function closeModal() {
-            // Hide the modal
-            document.getElementById("applyJobModal").style.display = "none";
-        }
-
-        document.getElementById('applyForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            alert("Application submitted!"); // Simple alert for now
-            closeModal();
-        });
         async function updateJob(jobId) {
             try {
                 const response = await fetch(`/view-job/${jobId}`);
@@ -373,7 +312,6 @@
                 closeModal();
             }
         }
-
 
         window.onload = loadJobs;
     </script>
