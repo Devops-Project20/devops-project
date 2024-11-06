@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
-
+ 
 const applicantSchema = new mongoose.Schema({
+    jobId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Job',
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -8,7 +13,7 @@ const applicantSchema = new mongoose.Schema({
     age: {
         type: Number,
         required: true,
-        min: 18 // Assuming a minimum age for applicants
+        min: 18
     },
     education: {
         type: String,
@@ -19,9 +24,19 @@ const applicantSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: function(v) {
-                return /\d{6,}/.test(v); // Basic validation: at least 6 digits
+                return /\d{6,}/.test(v);
             },
             message: props => `${props.value} is not a valid phone number!`
+        }
+    },
+    email: {
+        type: String,
+        required: true,
+        validate: {
+            validator: function(v) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+            },
+            message: props => `${props.value} is not a valid email address!`
         }
     },
     applied_at: {
@@ -29,5 +44,5 @@ const applicantSchema = new mongoose.Schema({
         default: Date.now
     }
 });
-
+ 
 module.exports = mongoose.model('Applicant', applicantSchema);

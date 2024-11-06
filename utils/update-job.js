@@ -1,6 +1,6 @@
 const Job = require('../models/jobs');
-
-
+ 
+ 
 // Get a job by ID
 async function getJobById(req, res) {
   try {
@@ -15,13 +15,13 @@ async function getJobById(req, res) {
       res.status(500).json({ message: error.message });
   }
 }
-
+ 
 // Edit a job
 async function editJob(req, res) {
   try {
       const id = req.params.id;
       const updatedData = req.body;
-
+ 
       const updatedJob = await Job.findByIdAndUpdate(id, updatedData, { new: true });
       if (updatedJob) {
           return res.status(200).json(updatedJob);
@@ -33,7 +33,7 @@ async function editJob(req, res) {
       return res.status(500).json({ message: error.message });
   }
 }
-
+ 
 module.exports = {
   editJob,
   getJobById

@@ -6,39 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobSpotter</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <style>
-        /* Modal styling */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 300px;
-            text-align: center;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
-    <!-- Bootstrap CSS (required for modal functionality) -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
 <body>
     <header>
         <h1>JobSpotter</h1>
@@ -48,35 +17,15 @@
                 <option>Any Classification</option>
             </select>
             <button onclick="searchJobs()">Search</button>
-
-            <!-- Button to trigger modal -->
             <button class="btn btn-primary" data-toggle="modal" data-target="#resourceModal">Add New Job</button>
         </div>
     </header>
-
+ 
     <div id="job-listings" class="container">
+
         <!-- Job listings will be displayed here -->
     </div>
-
-    <!-- Apply Job Modal -->
-    <div id="applyJobModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Apply for Job</h2>
-            <form id="applyForm">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" required>
-
-                <label for="education">Education:</label>
-                <input type="text" id="education" name="education" required>
-
-                <label for="phone">Phone:</label>
-                <input type="tel" id="phone" name="phone" required>
-
-                <button type="submit">Submit Application</button>
+ 
     <!-- Modal for updating job listing -->
     <div id="updateJobModal" class="modal">
         <div class="modal-content">
@@ -84,37 +33,25 @@
             <h2>Update Job Listing</h2>
             <form id="updateJobForm">
                 <input type="hidden" id="jobId">
-                
                 <label for="jobName">Job Name:</label>
                 <input type="text" id="jobName" name="name" class="modal-input" required>
-                
                 <label for="location">Location:</label>
                 <input type="text" id="location" name="location" class="modal-input" required>
-                
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" class="modal-input" required></textarea>
-                
                 <label for="salary">Salary:</label>
                 <input type="number" id="salary" name="salary" class="modal-input" required>
-                
                 <label for="companyEmail">Company Email:</label>
                 <input type="email" id="companyEmail" name="companyEmail" class="modal-input" required>
-                
                 <label for="companyName">Company Name:</label>
                 <input type="text" id="companyName" name="companyName" class="modal-input" required>
-                
                 <button type="button" onclick="submitJobUpdate()" class="modal-button">Update Job</button>
             </form>
         </div>
     </div>
-
-    <footer>
-        <p>JobSpotter © 2024</p>
-    </footer>
-
-    <!-- Add Resource Modal -->
-    <div class="modal fade" id="resourceModal" tabindex="-1" role="dialog" aria-labelledby="resourceModalLabel"
-        aria-hidden="true">
+ 
+    <!-- Add New Job Modal -->
+    <div class="modal fade" id="resourceModal" tabindex="-1" role="dialog" aria-labelledby="resourceModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -126,80 +63,107 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="name">Job Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter job name">
+                            <label for="addJobName">Job Name</label>
+                            <input type="text" class="form-control" id="addJobName" placeholder="Enter job name">
                         </div>
                         <div class="form-group">
-                            <label for="location">Location</label>
-                            <input type="text" class="form-control" id="location" placeholder="Enter job location">
+                            <label for="addLocation">Location</label>
+                            <input type="text" class="form-control" id="addLocation" placeholder="Enter job location">
                         </div>
                         <div class="form-group">
-                            <label for="description">Description</label>
-                            <input type="text" class="form-control" id="description"
-                                placeholder="Enter Job description">
+                            <label for="addDescription">Description</label>
+                            <input type="text" class="form-control" id="addDescription" placeholder="Enter job description">
                         </div>
                         <div class="form-group">
-                            <label for="salary">Salary</label>
-                            <input type="text" class="form-control" id="salary" placeholder="Enter job salary">
+                            <label for="addSalary">Salary</label>
+                            <input type="text" class="form-control" id="addSalary" placeholder="Enter job salary">
                         </div>
                         <div class="form-group">
-                            <label for="companyEmail">Company Email</label>
-                            <input type="text" class="form-control" id="companyEmail" placeholder="Enter company email">
+                            <label for="addCompanyEmail">Company Email</label>
+                            <input type="text" class="form-control" id="addCompanyEmail" placeholder="Enter company email">
                         </div>
                         <div class="form-group">
-                            <label for="companyName">Company Name</label>
-                            <input type="text" class="form-control" id="companyName" placeholder="Enter Company Name">
+                            <label for="addCompanyName">Company Name</label>
+                            <input type="text" class="form-control" id="addCompanyName" placeholder="Enter company name">
                         </div>
-                        <p align="right" id="message" class=""></p>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="addJob()">Add
-                        New Job</button>
+                    <button type="button" class="btn btn-primary" onclick="addJob()">Add New Job</button>
                 </div>
             </div>
         </div>
     </div>
-
+ 
+    <!-- Apply Job Modal -->
+    <div class="modal fade" id="applyJobModal" tabindex="-1" role="dialog" aria-labelledby="applyJobModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="applyJobModalLabel">Apply for Job</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="applyJobForm">
+                        <div class="form-group">
+                            <label for="applicantName">Name</label>
+                            <input type="text" class="form-control" id="applicantName" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="applicantAge">Age</label>
+                            <input type="number" class="form-control" id="applicantAge" placeholder="Enter your age" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="applicantEducation">Education</label>
+                            <input type="text" class="form-control" id="applicantEducation" placeholder="Enter your education" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="applicantPhone">Phone</label>
+                            <input type="text" class="form-control" id="applicantPhone" placeholder="Enter your phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="applicantEmail">Email</label>
+                            <input type="email" class="form-control" id="applicantEmail" placeholder="Enter your email" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitApplication()">Submit Application</button>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
     <!-- Scripts for Bootstrap modal functionality -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+      
         async function addJob() {
-            // Collect form data
-            const name = document.getElementById('name').value;
-            const location = document.getElementById('location').value;
-            const description = document.getElementById('description').value;
-            const salary = document.getElementById('salary').value;
-            const companyEmail = document.getElementById('companyEmail').value;
-            const companyName = document.getElementById('companyName').value;
-
-            // Create a job object
-            const jobData = {
-                name,
-                location,
-                description,
-                salary,
-                companyEmail,
-                companyName
-            };
-
+            const name = document.getElementById('addJobName').value;
+            const location = document.getElementById('addLocation').value;
+            const description = document.getElementById('addDescription').value;
+            const salary = document.getElementById('addSalary').value;
+            const companyEmail = document.getElementById('addCompanyEmail').value;
+            const companyName = document.getElementById('addCompanyName').value;
+ 
+            const jobData = { name, location, description, salary, companyEmail, companyName };
+ 
             try {
-                // Send a POST request to the backend
                 const response = await fetch('/add-job', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(jobData)
                 });
-
-                // Handle the response
                 const result = await response.json();
                 if (response.ok) {
                     alert('Job added successfully!');
-                    loadJobs(); // Refresh the job listings
+                    loadJobs();
+                    clearAndCloseModal();
                 } else {
                     alert('Failed to add job: ' + result.message);
                 }
@@ -208,11 +172,57 @@
                 alert('An error occurred while adding the job.');
             }
         }
-
-        function applyJob(jobId) {
-            window.location.href = `/apply-job/${jobId}`;
+ 
+        function clearAndCloseModal() {
+            document.getElementById('addJobName').value = '';
+            document.getElementById('addLocation').value = '';
+            document.getElementById('addDescription').value = '';
+            document.getElementById('addSalary').value = '';
+            document.getElementById('addCompanyEmail').value = '';
+            document.getElementById('addCompanyName').value = '';
+            $('#resourceModal').modal('hide');
         }
-
+ 
+        function applyJob(jobId) {
+            $('#applyJobModal').modal('show');
+            document.getElementById('applyJobModal').setAttribute('data-job-id', jobId);
+        }
+ 
+        async function submitApplication() {
+            const jobId = document.getElementById('applyJobModal').getAttribute('data-job-id');
+            const name = document.getElementById('applicantName').value.trim();
+            const age = document.getElementById('applicantAge').value;
+            const education = document.getElementById('applicantEducation').value.trim();
+            const phone = document.getElementById('applicantPhone').value.trim();
+            const email = document.getElementById('applicantEmail').value.trim();
+ 
+            if (!name || !age || !education || !phone || !email) {
+                alert('Please fill in all fields.');
+                return;
+            }
+ 
+            const applicationData = { name, age, education, phone, email };
+ 
+            try {
+                const response = await fetch(`/apply-job/${jobId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(applicationData)
+                });
+ 
+                const result = await response.json();
+                if (response.ok) {
+                    alert('Application submitted successfully!');
+                    $('#applyJobModal').modal('hide');
+                } else {
+                    alert('Failed to submit application: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error submitting application:', error);
+                alert('An error occurred while submitting the application.');
+            }
+        }
+ 
         async function loadJobs() {
             try {
                 const response = await fetch('/view-jobs');
@@ -222,16 +232,33 @@
                 console.error('Error fetching jobs:', error);
             }
         }
+      
+      async function searchJobs() {
+        const keyword = document.getElementById("keyword").value;
+        const classification = document.getElementById("classification").value;
+        const query = new URLSearchParams({ keyword, classification }).toString();
 
+        try {
+          const response = await fetch(`/search-jobs?${query}`, { method: "GET" });
+          if (response.ok) {
+            const jobs = await response.json();
+            displayJobs(jobs);
+          } else {
+            alert("Error searching jobs");
+          }
+        } catch (error) {
+          console.error("Error searching jobs:", error);
+        }
+      }
+ 
         function displayJobs(jobs) {
             const jobListings = document.getElementById('job-listings');
             jobListings.innerHTML = '';
-
             if (jobs.length === 0) {
                 jobListings.innerHTML = '<p>No job listings found.</p>';
                 return;
             }
-
+ 
             jobs.forEach(job => {
                 const jobCard = document.createElement('div');
                 jobCard.classList.add('job-listing');
@@ -252,27 +279,12 @@
                 jobListings.appendChild(jobCard);
             });
         }
-
-        function applyJob(jobId) {
-            // Show the modal
-            document.getElementById("applyJobModal").style.display = "block";
-        }
-
-        function closeModal() {
-            // Hide the modal
-            document.getElementById("applyJobModal").style.display = "none";
-        }
-
-        document.getElementById('applyForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            alert("Application submitted!"); // Simple alert for now
-            closeModal();
-        });
+ 
         async function updateJob(jobId) {
             try {
                 const response = await fetch(`/view-job/${jobId}`);
                 const job = await response.json();
-
+ 
                 document.getElementById('jobId').value = job._id;
                 document.getElementById('jobName').value = job.name;
                 document.getElementById('location').value = job.location;
@@ -280,20 +292,17 @@
                 document.getElementById('salary').value = job.salary;
                 document.getElementById('companyEmail').value = job.companyEmail;
                 document.getElementById('companyName').value = job.companyName;
-
-                // Display the modal
                 document.getElementById('updateJobModal').style.display = 'block';
             } catch (error) {
                 console.error('Error fetching job:', error);
             }
         }
-
+ 
         function closeModal() {
             document.getElementById('updateJobModal').style.display = 'none';
         }
-
+ 
         async function submitJobUpdate() {
-            // Retrieve form field values
             const jobId = document.getElementById('jobId').value;
             const jobName = document.getElementById('jobName').value.trim();
             const location = document.getElementById('location').value.trim();
@@ -301,64 +310,25 @@
             const salary = document.getElementById('salary').value;
             const companyEmail = document.getElementById('companyEmail').value.trim();
             const companyName = document.getElementById('companyName').value.trim();
-
-            // Email validation regex
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            // Check for empty fields
-            if (!jobName) {
-                alert("Job Name cannot be empty.");
+ 
+            if (!jobName || !location || !description || !salary || !companyEmail || !companyName) {
+                alert("Please fill all fields correctly.");
                 return;
             }
-            if (!location) {
-                alert("Location cannot be empty.");
-                return;
-            }
-            if (!description) {
-                alert("Description cannot be empty.");
-                return;
-            }
-            if (!salary || salary <= 0) {
-                alert("Please enter a valid salary.");
-                return;
-            }
-            if (!companyEmail) {
-                alert("Company Email cannot be empty.");
-                return;
-            }
-            if (!emailRegex.test(companyEmail)) {
-                alert("Please enter a valid email address.");
-                return;
-            }
-            if (!companyName) {
-                alert("Company Name cannot be empty.");
-                return;
-            }
-
-            // If all validations pass, prepare data to send
-            const jobData = {
-                name: jobName,
-                location: location,
-                description: description,
-                salary: salary,
-                companyEmail: companyEmail,
-                companyName: companyName
-            };
-
-            // Submit the data to the backend
+ 
+            const jobData = { name: jobName, location, description, salary, companyEmail, companyName };
+ 
             try {
                 const response = await fetch(`/edit-job/${jobId}`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(jobData)
                 });
-
+ 
                 if (response.ok) {
                     alert('Job updated successfully!');
                     closeModal();
-                    loadJobs(); // Refresh the job list
+                    loadJobs();
                 } else {
                     alert('Error updating job');
                 }
@@ -366,17 +336,15 @@
                 console.error('Error updating job:', error);
             }
         }
-
-        window.onclick = function(event) {
+ 
+        window.onclick = function (event) {
             const modal = document.getElementById('updateJobModal');
             if (event.target === modal) {
                 closeModal();
             }
         }
-
-
+ 
         window.onload = loadJobs;
     </script>
 </body>
-
 </html>
