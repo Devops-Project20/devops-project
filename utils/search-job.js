@@ -4,6 +4,11 @@ async function searchJobs(req, res) {
     try {
         const { keyword, location } = req.query;
 
+        // Validate query parameters
+        if (!keyword && !location) {
+            return res.status(400).json({ message: "Query parameter is required" });
+        }
+
         // Build query object
         let query = {};
 
@@ -29,4 +34,4 @@ async function searchJobs(req, res) {
 
 module.exports = {
     searchJobs
-}
+};
