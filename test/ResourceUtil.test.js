@@ -24,26 +24,57 @@ describe("Search Job API", () => {
 
   // Test Suite for searching jobs
   describe("GET /search-jobs", () => {
-    it("should return jobs matching the search query", (done) => {
+    it("should return jobs matching the keyword", (done) => {
       chai
         .request(baseUrl)
         .get("/search-jobs")
-        .query({ keyword: "Developer" }) // Replace "Developer" with an appropriate test query
+        .query({ keyword: "Developer" })
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an("array");
           res.body.forEach((job) => {
-            expect(job).to.have.property("name").that.includes("Developer"); // Adjust the validation as needed
+            expect(job).to.have.property("name").that.includes("Developer");
           });
           done();
         });
     });
 
-    it("should return an empty array if no jobs match the query", (done) => {
+    it("should return jobs matching the location", (done) => {
       chai
         .request(baseUrl)
         .get("/search-jobs")
-        .query({ keyword: "NonExistentJob" }) // Query that does not match any job
+        .query({ location: "Singapore" })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("array");
+          res.body.forEach((job) => {
+            expect(job).to.have.property("location").that.includes("Singapore");
+          });
+          done();
+        });
+    });
+
+    it("should return jobs matching both keyword and location", (done) => {
+      chai
+        .request(baseUrl)
+        .get("/search-jobs")
+        .query({ keyword: "Developer", location: "Singapore" })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("array");
+          res.body.forEach((job) => {
+            expect(job).to.have.property("name").that.includes("Developer");
+            expect(job).to.have.property("location").that.includes("Singapore");
+          });
+          done();
+        });
+    });
+
+    it("should return an empty array for no matching results", (done) => {
+      chai
+        .request(baseUrl)
+        .get("/search-jobs")
+        .query({ keyword: "NonExistentJob" })
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an("array").that.is.empty;
@@ -62,11 +93,11 @@ describe("Search Job API", () => {
         });
     });
 
-    it("should handle invalid characters in the query", (done) => {
+    it("should handle invalid characters in the query gracefully", (done) => {
       chai
         .request(baseUrl)
         .get("/search-jobs")
-        .query({ keyword: "@@@", location: "###" }) // Invalid characters
+        .query({ keyword: "@@@", location: "###" })
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an("array").that.is.empty;
@@ -75,7 +106,7 @@ describe("Search Job API", () => {
     });
 
     it("should handle extremely long query parameters gracefully", (done) => {
-      const longKeyword = "a".repeat(1000); // 1000-character string
+      const longKeyword = "a".repeat(1000);
       chai
         .request(baseUrl)
         .get("/search-jobs")
@@ -87,24 +118,7 @@ describe("Search Job API", () => {
         });
     });
 
-    it("should return jobs matching both keyword and location", (done) => {
-      chai
-        .request(baseUrl)
-        .get("/search-jobs")
-        .query({ keyword: "Developer", location: "Singapore" }) // Adjust based on test data
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array");
-          res.body.forEach((job) => {
-            expect(job.name).to.include("Developer");
-            expect(job.location).to.include("Singapore");
-          });
-          done();
-        });
-    });
-
     it("should handle database errors gracefully", (done) => {
-      // Simulate a database error by mocking the Job.find function
       const originalFind = Job.find;
       Job.find = () => {
         throw new Error("Simulated database error");
@@ -122,8 +136,7 @@ describe("Search Job API", () => {
         });
     });
 
-    it("should handle requests when no jobs exist", (done) => {
-      // Mock Job.find to return an empty array
+    it("should return an empty array when no jobs exist", (done) => {
       const originalFind = Job.find;
       Job.find = async () => [];
 
@@ -135,6 +148,21 @@ describe("Search Job API", () => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an("array").that.is.empty;
           Job.find = originalFind; // Restore original function
+          done();
+        });
+    });
+
+    it("should handle mixed-case keywords correctly", (done) => {
+      chai
+        .request(baseUrl)
+        .get("/search-jobs")
+        .query({ keyword: "DeVeLoPeR" })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("array");
+          res.body.forEach((job) => {
+            expect(job.name).to.include("Developer");
+          });
           done();
         });
     });
