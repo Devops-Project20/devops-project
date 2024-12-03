@@ -3,48 +3,40 @@ describe("Job Search Frontend", () => {
 
   before(() => {
     cy.task("startServer").then((url) => {
-      baseUrl = url; // Store the base URL
+      baseUrl = url;
       cy.visit(baseUrl);
     });
   });
 
   after(() => {
-    return cy.task("stopServer"); // Stop the server after the tests are done
+    return cy.task("stopServer");
   });
 
   it("should search for a job by title", () => {
-    // Enter a job title in the search field
-    cy.get("#searchField").type("Test Job Title", { force: true });
-    // Trigger the search
-    cy.get("#searchButton").click();
-    // Verify that the job appears in the results
-    cy.get("#jobTableContent").contains("Test Job Title").should("exist");
+    cy.get("#keyword").type("Test Job Title", { force: true });
+    cy.get("button").contains("Search").click();
+    cy.get("#job-listings").should('be.visible'); // Ensure job listings are visible
+    cy.get("#job-listings").contains("Test Job Title").should("exist");
   });
 
   it("should search for a job by company name", () => {
-    // Enter a company name in the search field
-    cy.get("#searchField").clear().type("Test Company", { force: true });
-    // Trigger the search
-    cy.get("#searchButton").click();
-    // Verify that jobs from the company appear in the results
-    cy.get("#jobTableContent").contains("Test Company").should("exist");
+    cy.get("#keyword").should('be.visible').clear().type("Test Company", { force: true });
+    cy.get("button").contains("Search").click();
+    cy.get("#job-listings").should('be.visible');
+    cy.get("#job-listings").contains("Test Company").should("exist");
   });
 
   it("should search for a job by location", () => {
-    // Enter a location in the search field
-    cy.get("#searchField").clear().type("Test Location", { force: true });
-    // Trigger the search
-    cy.get("#searchButton").click();
-    // Verify that jobs in the location appear in the results
-    cy.get("#jobTableContent").contains("Test Location").should("exist");
+    cy.get("#keyword").should('be.visible').clear().type("Test Location", { force: true });
+    cy.get("button").contains("Search").click();
+    cy.get("#job-listings").should('be.visible');
+    cy.get("#job-listings").contains("Test Location").should("exist");
   });
 
   it("should display no results for a non-existent job", () => {
-    // Enter a non-existent search term
-    cy.get("#searchField").clear().type("NonExistentJob", { force: true });
-    // Trigger the search
-    cy.get("#searchButton").click();
-    // Verify that no jobs appear in the results
-    cy.get("#jobTableContent").contains("No jobs found").should("exist");
+    cy.get("#keyword").should('be.visible').clear().type("NonExistentJob", { force: true });
+    cy.get("button").contains("Search").click();
+    cy.get("#job-listings").should('be.visible');
+    cy.get("#job-listings").contains("No job listings found.").should("exist");
   });
 });
