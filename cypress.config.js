@@ -1,7 +1,9 @@
 const { defineConfig } = require("cypress");
 const { spawn } = require("child_process");
+
 let server;
 let baseUrl;
+
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
@@ -16,12 +18,12 @@ module.exports = defineConfig({
             server = spawn("node", ["-r", "nyc", "index-test.js"]);
             server.stdout.on("data", (data) => {
               console.log(data.toString()); // Log the output for debugging
-              if (data.toString().includes("Demo project at:")) {
-                const baseUrlPrefix = "Demo project at: ";
-                const startIndex = data.toString().indexOf(baseUrlPrefix);
+              const baseUrlPrefix = "DevOps project at: ";
+              const output = data.toString();
+              if (output.includes(baseUrlPrefix)) {
+                const startIndex = output.indexOf(baseUrlPrefix);
                 if (startIndex !== -1) {
-                  baseUrl = data
-                    .toString()
+                  baseUrl = output
                     .substring(startIndex + baseUrlPrefix.length)
                     .trim();
                   resolve(baseUrl);

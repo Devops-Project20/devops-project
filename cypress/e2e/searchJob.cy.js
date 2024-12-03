@@ -12,10 +12,6 @@ describe("Job Search Frontend", () => {
     return cy.task("stopServer"); // Stop the server after the tests are done
   });
 
-  beforeEach(() => {
-    cy.visit(baseURL);
-  });
-
   it("should search for a job by title", () => {
     // Enter a job title in the search field
     cy.get("#searchField").type("Test Job Title", { force: true });
