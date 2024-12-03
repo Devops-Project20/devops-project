@@ -5,14 +5,15 @@ async function loadJobs() {
         displayJobs(jobs);
     } catch (error) {
         console.error('Error fetching jobs:', error);
+        displayJobs([]);  // Show an empty result if there's an error
     }
 }
- 
+
 async function searchJobs() {
     const keyword = document.getElementById("keyword").value;
     const classification = document.getElementById("classification").value;
     const query = new URLSearchParams({ keyword, classification }).toString();
- 
+
     try {
         const response = await fetch(`/search-jobs?${query}`, { method: "GET" });
         if (response.ok) {
@@ -20,20 +21,23 @@ async function searchJobs() {
             displayJobs(jobs);
         } else {
             alert("Error searching jobs");
+            displayJobs([]); // To clear previous job results
         }
     } catch (error) {
         console.error("Error searching jobs:", error);
+        displayJobs([]); // To clear previous job results
     }
 }
- 
+
 function displayJobs(jobs) {
     const jobListings = document.getElementById('job-listings');
-    jobListings.innerHTML = '';
+    jobListings.innerHTML = '';  // Clear previous listings
+
     if (jobs.length === 0) {
         jobListings.innerHTML = '<p>No job listings found.</p>';
         return;
     }
- 
+
     jobs.forEach(job => {
         const jobCard = document.createElement('div');
         jobCard.classList.add('job-listing');
@@ -54,4 +58,5 @@ function displayJobs(jobs) {
         jobListings.appendChild(jobCard);
     });
 }
+
 window.onload = loadJobs;

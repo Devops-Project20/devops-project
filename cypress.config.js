@@ -11,7 +11,6 @@ module.exports = defineConfig({
       on("task", {
         startServer() {
           return new Promise((resolve, reject) => {
-            // Check if the server is already running
             if (server) {
               resolve(baseUrl);
             }
