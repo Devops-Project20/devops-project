@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for search-job.js</title>
+    <title>Code coverage report for applyjob.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="prettify.css" />
     <link rel="stylesheet" href="base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="index.html">All files</a> search-job.js</h1>
+        <h1><a href="index.html">All files</a> applyjob.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>2/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>2/14</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -98,90 +98,84 @@
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Job = require('../models/jobs');
-&nbsp;
-async function searchJobs(req, res) {
-    try {
-        const { keyword, location } = req.query;
-&nbsp;
-        // Validate query parameters
-        if (!keyword &amp;&amp; !location) {
-            return res.status(400).json({ message: "Query parameter is required" });
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Application = require('../models/application');
+ 
+async function <span class="fstat-no" title="function not covered" >applyjob(</span>req, res) {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+        const { jobId } = <span class="cstat-no" title="statement not covered" >req.params;</span>
+        const { name, age, education, phone, email } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+ 
+<span class="cstat-no" title="statement not covered" >        if (!phone || phone.length &lt; 6) {</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ message: 'Validation error: phone number must be at least 6 digits' });</span>
         }
 &nbsp;
-        // Build query object
-        let query = {};
-&nbsp;
-        if (keyword) {
-            query.$or = [
-                { name: new RegExp(keyword, 'i') }, // Search by job name
-                { companyName: new RegExp(keyword, 'i') } // Search by company name
-            ];
+<span class="cstat-no" title="statement not covered" >        if (age &lt; 18) {</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ message: 'Minimum age is 18 to apply.' });</span>
         }
-&nbsp;
-        if (location &amp;&amp; location !== 'Any Location') {
-            query.location = new RegExp(location, 'i'); // Search by location
-        }
-&nbsp;
-        // Find jobs based on query
-        const jobs = await Job.find(query);
-        return res.status(200).json(jobs);
+ 
+        const newApplication = <span class="cstat-no" title="statement not covered" >new Application({</span>
+            jobId,
+            name,
+            age,
+            education,
+            phone,
+            email
+        });
+ 
+        const savedApplication = <span class="cstat-no" title="statement not covered" >await newApplication.save();</span>
+<span class="cstat-no" title="statement not covered" >        return res.status(201).json(savedApplication);</span>
     } catch (error) {
-        console.error("Error searching jobs:", error);
-        return res.status(500).json({ message: error.message });
+<span class="cstat-no" title="statement not covered" >        console.error("Error applying for job:", error);</span>
+<span class="cstat-no" title="statement not covered" >        return res.status(500).json({ message: 'An error occurred', error });</span>
     }
 }
-&nbsp;
+ 
 module.exports = {
-    searchJobs
+    applyjob
 };
-&nbsp;</pre></td></tr></table></pre>
+ </pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-03T06:00:13.149Z
+                at 2024-12-02T09:33:10.168Z
             </div>
         <script src="prettify.js"></script>
         <script>
