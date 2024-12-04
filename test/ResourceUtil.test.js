@@ -121,7 +121,7 @@ describe("Search Job API", () => {
     it("should handle database errors gracefully", (done) => {
       const originalFind = Job.find;
       Job.find = () => {
-        throw new Error("Simulated database error");
+        throw new Error("Internal Server Error");
       };
 
       chai
@@ -130,7 +130,7 @@ describe("Search Job API", () => {
         .query({ keyword: "Developer" })
         .end((err, res) => {
           expect(res).to.have.status(500);
-          expect(res.body.message).to.equal("Simulated database error");
+          expect(res.body.message).to.equal("Internal Server Error");
           Job.find = originalFind; // Restore original function
           done();
         });

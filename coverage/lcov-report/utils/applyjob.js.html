@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for view-job.js</title>
+    <title>Code coverage report for utils/applyjob.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="prettify.css" />
-    <link rel="stylesheet" href="base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="index.html">All files</a> view-job.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">utils</a> applyjob.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.18% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/11</span>
+                <span class='fraction'>2/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.18% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/11</span>
+                <span class='fraction'>2/14</span>
             </div>
         
             
@@ -96,30 +96,34 @@
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -129,56 +133,58 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Job = require('../models/jobs');
-&nbsp;
-// View jobs with pagination
-async function <span class="fstat-no" title="function not covered" >viewJobs(</span>req, res) {
-    const { page = <span class="branch-0 cbranch-no" title="branch not covered" >1,</span> limit = <span class="branch-0 cbranch-no" title="branch not covered" >10 </span>} = <span class="cstat-no" title="statement not covered" >req.query;</span> // Default page = 1, limit = 10
-    const skip = <span class="cstat-no" title="statement not covered" >(page - 1) * limit;</span>
-&nbsp;
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Application = require('../models/application');
+ 
+async function <span class="fstat-no" title="function not covered" >applyjob(</span>req, res) {
 <span class="cstat-no" title="statement not covered" >    try {</span>
-        // Count total jobs
-        const totalJobs = <span class="cstat-no" title="statement not covered" >await Job.countDocuments();</span>
+        const { jobId } = <span class="cstat-no" title="statement not covered" >req.params;</span>
+        const { name, age, education, phone, email } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+ 
+<span class="cstat-no" title="statement not covered" >        if (!phone || phone.length &lt; 6) {</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ message: 'Validation error: phone number must be at least 6 digits' });</span>
+        }
 &nbsp;
-        // Fetch jobs with pagination
-        const jobs = <span class="cstat-no" title="statement not covered" >await Job.find().skip(skip).limit(Number(limit));</span>
-&nbsp;
-        // Calculate total pages
-        const totalPages = <span class="cstat-no" title="statement not covered" >Math.ceil(totalJobs / limit);</span>
-&nbsp;
-        // Respond with jobs and pagination metadata
-<span class="cstat-no" title="statement not covered" >        return res.status(200).json({</span>
-            jobs,
-            totalPages,
-            currentPage: Number(page),
-            totalJobs,
+<span class="cstat-no" title="statement not covered" >        if (age &lt; 18) {</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({ message: 'Minimum age is 18 to apply.' });</span>
+        }
+ 
+        const newApplication = <span class="cstat-no" title="statement not covered" >new Application({</span>
+            jobId,
+            name,
+            age,
+            education,
+            phone,
+            email
         });
+ 
+        const savedApplication = <span class="cstat-no" title="statement not covered" >await newApplication.save();</span>
+<span class="cstat-no" title="statement not covered" >        return res.status(201).json(savedApplication);</span>
     } catch (error) {
-<span class="cstat-no" title="statement not covered" >        console.error("Error viewing jobs:", error);</span>
-<span class="cstat-no" title="statement not covered" >        return res.status(500).json({ message: "Internal Server Error" });</span>
+<span class="cstat-no" title="statement not covered" >        console.error("Error applying for job:", error);</span>
+<span class="cstat-no" title="statement not covered" >        return res.status(500).json({ message: 'An error occurred', error });</span>
     }
 }
-&nbsp;
+ 
 module.exports = {
-    viewJobs,
+    applyjob
 };
-&nbsp;</pre></td></tr></table></pre>
+ </pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-04T17:20:27.136Z
+                at 2024-12-04T07:27:37.835Z
             </div>
-        <script src="prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="sorter.js"></script>
-        <script src="block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     
