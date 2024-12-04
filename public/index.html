@@ -14,9 +14,7 @@
         <h1>JobSpotter</h1>
         <div class="search-bar">
             <input type="text" id="keyword" placeholder="Enter Keywords">
-            <select id="classification">
-                <option>Any Classification</option>
-            </select>
+            <input type="text" id="location" placeholder="Enter Location">
             <button onclick="searchJobs()">Search</button>
             <button class="btn btn-primary" data-toggle="modal" data-target="#resourceModal">Add New Job</button>
         </div>
@@ -26,6 +24,8 @@
 
         <!-- Job listings will be displayed here -->
     </div>
+
+    <div id="pagination-controls"></div>    
 
     <!-- Modal for updating job listing -->
     <div id="updateJobModal" class="modal">

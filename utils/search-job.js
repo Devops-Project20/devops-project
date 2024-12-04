@@ -2,11 +2,11 @@ const Job = require('../models/jobs');
 
 async function searchJobs(req, res) {
     try {
-        const { keyword, location } = req.query;
+        const { keyword = "", location = "" } = req.query; // Default to empty strings
 
-        // Validate query parameters
+        // Handle completely empty queries
         if (!keyword && !location) {
-            return res.status(400).json({ message: "Query parameter is required" });
+            return res.status(400).json({message: "Query parameter is required"}); // Responds prompting the query parameter to be filled in before performing a search.
         }
 
         // Build query object
@@ -28,7 +28,7 @@ async function searchJobs(req, res) {
         return res.status(200).json(jobs);
     } catch (error) {
         console.error("Error searching jobs:", error);
-        return res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 }
 
