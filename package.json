@@ -15,7 +15,7 @@
     "@cypress/code-coverage": "^3.13.8",
     "body-parser": "^1.20.3",
     "chai": "^4.3.4",
-    "chai-http": "^4.3.0",
+    "chai-http": "^5.1.1",
     "cypress": "^13.16.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
