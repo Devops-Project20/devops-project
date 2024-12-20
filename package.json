@@ -22,7 +22,7 @@
     "fs": "^0.0.1-security",
     "mocha": "^10.8.2",
     "mongodb": "^6.10.0",
-    "mongoose": "^8.8.0",
+    "mongoose": "^8.9.2",
     "nyc": "^17.1.0"
   },
   "directories": {
