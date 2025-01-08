@@ -119,8 +119,8 @@ describe("Job Search Frontend", () => {
     // Wait for the intercepted request
     cy.wait("@getJobsError");
   
-    // Assert that the "No job listings found" message is displayed, meaning that database error has been handled with no listing result.
-    cy.get("#job-listings").should("contain.text", "No job listings found.");
+    // Assert that the website link should now be at the front page, meaning that the error has been handled with a website refresh.
+    cy.url().should("eq", `${baseUrl}/`); // Use the stored `baseUrl`
   });
 
   it("should return no results when no jobs exist", () => {

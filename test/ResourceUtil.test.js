@@ -3,7 +3,7 @@ const { expect } = require("chai");
 const { app, server } = require("../index");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const Job = require("../models/jobs"); // Assuming Job is your mongoose model
+const Job = require("../models/jobs");
 chai.use(chaiHttp);
 
 let baseUrl;
@@ -16,13 +16,10 @@ describe("Search Job API", () => {
 
   after(() => {
     return new Promise((resolve) => {
-      server.close(() => {
-        resolve();
-      });
+      server.close(() => resolve());
     });
   });
 
-  // Test Suite for searching jobs
   describe("GET /search-jobs", () => {
     it("should return jobs matching the keyword", (done) => {
       chai
@@ -31,8 +28,9 @@ describe("Search Job API", () => {
         .query({ keyword: "Developer" })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array");
-          res.body.forEach((job) => {
+          expect(res.body).to.be.an("object");
+          expect(res.body).to.have.property("jobs").that.is.an("array");
+          res.body.jobs.forEach((job) => {
             expect(job).to.have.property("name").that.includes("Developer");
           });
           done();
@@ -46,8 +44,9 @@ describe("Search Job API", () => {
         .query({ location: "Singapore" })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array");
-          res.body.forEach((job) => {
+          expect(res.body).to.be.an("object");
+          expect(res.body).to.have.property("jobs").that.is.an("array");
+          res.body.jobs.forEach((job) => {
             expect(job).to.have.property("location").that.includes("Singapore");
           });
           done();
@@ -61,8 +60,9 @@ describe("Search Job API", () => {
         .query({ keyword: "Developer", location: "Singapore" })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array");
-          res.body.forEach((job) => {
+          expect(res.body).to.be.an("object");
+          expect(res.body).to.have.property("jobs").that.is.an("array");
+          res.body.jobs.forEach((job) => {
             expect(job).to.have.property("name").that.includes("Developer");
             expect(job).to.have.property("location").that.includes("Singapore");
           });
@@ -77,7 +77,8 @@ describe("Search Job API", () => {
         .query({ keyword: "NonExistentJob" })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array").that.is.empty;
+          expect(res.body).to.be.an("object");
+          expect(res.body).to.have.property("jobs").that.is.an("array").that.is.empty;
           done();
         });
     });
@@ -88,6 +89,7 @@ describe("Search Job API", () => {
         .get("/search-jobs")
         .end((err, res) => {
           expect(res).to.have.status(400);
+          expect(res.body).to.be.an("object");
           expect(res.body.message).to.equal("Query parameter is required");
           done();
         });
@@ -100,7 +102,8 @@ describe("Search Job API", () => {
         .query({ keyword: "@@@", location: "###" })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array").that.is.empty;
+          expect(res.body).to.be.an("object");
+          expect(res.body).to.have.property("jobs").that.is.an("array").that.is.empty;
           done();
         });
     });
@@ -113,7 +116,8 @@ describe("Search Job API", () => {
         .query({ keyword: longKeyword })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array").that.is.empty;
+          expect(res.body).to.be.an("object");
+          expect(res.body).to.have.property("jobs").that.is.an("array").that.is.empty;
           done();
         });
     });
@@ -130,6 +134,7 @@ describe("Search Job API", () => {
         .query({ keyword: "Developer" })
         .end((err, res) => {
           expect(res).to.have.status(500);
+          expect(res.body).to.be.an("object");
           expect(res.body.message).to.equal("Internal Server Error");
           Job.find = originalFind; // Restore original function
           done();
@@ -137,20 +142,21 @@ describe("Search Job API", () => {
     });
 
     it("should return an empty array when no jobs exist", (done) => {
-      const originalFind = Job.find;
-      Job.find = async () => [];
-
       chai
         .request(baseUrl)
         .get("/search-jobs")
-        .query({ keyword: "Developer" })
+        .query({ keyword: "NonExistentJob" })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array").that.is.empty;
-          Job.find = originalFind; // Restore original function
+          expect(res.body).to.be.an("object");
+          expect(res.body).to.have.property("jobs").that.is.an("array").that.is.empty;
+          expect(res.body).to.have.property("totalPages").that.equals(0);
+          expect(res.body).to.have.property("currentPage").that.equals(1);
+          expect(res.body).to.have.property("totalJobs").that.equals(0);
           done();
         });
     });
+    
 
     it("should handle mixed-case keywords correctly", (done) => {
       chai
@@ -159,9 +165,10 @@ describe("Search Job API", () => {
         .query({ keyword: "DeVeLoPeR" })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an("array");
-          res.body.forEach((job) => {
-            expect(job.name).to.include("Developer");
+          expect(res.body).to.be.an("object");
+          expect(res.body).to.have.property("jobs").that.is.an("array");
+          res.body.jobs.forEach((job) => {
+            expect(job).to.have.property("name").that.matches(/developer/i);
           });
           done();
         });

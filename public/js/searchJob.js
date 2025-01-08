@@ -27,26 +27,34 @@ async function searchJobs() {
     const keyword = document.getElementById("keyword").value.trim();
     const location = document.getElementById("location").value.trim();
 
+    const jobListings = document.getElementById('job-listings');
+    jobListings.innerHTML = ''; // Clear the UI before starting the search
+
     if (!keyword && !location) {
+        // Show alert if no input is provided
         alert("Please enter a keyword or location.");
         return;
     }
 
-    const query = new URLSearchParams({ keyword, location, page: currentPage, limit: pageSize }).toString();
-
     try {
+        const query = new URLSearchParams({ keyword, location }).toString();
         const response = await fetch(`/search-jobs?${query}`, { method: "GET" });
+
         if (response.ok) {
-            const { jobs, totalPages } = await response.json();
-            displayJobs(jobs);
-            updatePaginationControls(currentPage, totalPages);
+            const data = await response.json();
+
+            if (data.jobs && data.jobs.length > 0) {
+                displayJobs(data.jobs); // Display jobs if found
+            } else {
+                displayJobs([]); // Pass empty array to show "No job listings found."
+            }
         } else {
             console.error("Error searching jobs:", response.statusText);
-            alert("Error searching jobs. Please try again.");
+            displayJobs([]); // Show empty results for non-200 responses
         }
     } catch (error) {
-        console.error("Error searching jobs:", error);
-        alert("An error occurred while searching for jobs.");
+        console.error("Error fetching jobs:", error);
+        displayJobs([]); // Show empty results for fetch errors
     }
 }
 
@@ -54,11 +62,13 @@ function displayJobs(jobs) {
     const jobListings = document.getElementById('job-listings');
     jobListings.innerHTML = ''; // Clear previous listings
 
-    if (jobs.length === 0) {
+    if (!jobs || jobs.length === 0) {
+        // Show "No job listings found." if no jobs exist
         jobListings.innerHTML = '<p>No job listings found.</p>';
         return;
     }
 
+    // Populate job listings with data
     jobs.forEach(job => {
         const jobCard = document.createElement('div');
         jobCard.classList.add('job-listing');
@@ -79,6 +89,7 @@ function displayJobs(jobs) {
         jobListings.appendChild(jobCard);
     });
 }
+
 
 function updatePaginationControls(page, totalPages) {
     const paginationControls = document.getElementById("pagination-controls");
