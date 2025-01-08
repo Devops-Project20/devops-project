@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.81% </span>
+                <span class="strong">81.15% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/64</span>
+                <span class='fraction'>56/69</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.12% </span>
+                <span class="strong">81.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/63</span>
+                <span class='fraction'>56/69</span>
             </div>
         
             
@@ -184,9 +184,19 @@
 <a name='L119'></a><a href='#L119'>119</a>
 <a name='L120'></a><a href='#L120'>120</a>
 <a name='L121'></a><a href='#L121'>121</a>
-<a name='L122'></a><a href='#L122'>122</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -217,7 +227,7 @@
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -228,7 +238,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,10 +258,8 @@
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
@@ -277,7 +284,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -301,14 +307,25 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">let currentPage = 1; // Current page for pagination
 const pageSize = 10; // Default number of jobs per page
 &nbsp;
 async function loadJobs(page = <span class="branch-0 cbranch-no" title="branch not covered" >1)</span> {
+    const jobListings = document.getElementById('job-listings');
+    jobListings.innerHTML = '&lt;p&gt;Loading...&lt;/p&gt;'; // Temporary loading indicator
+&nbsp;
     try {
         const response = await fetch(`/view-jobs?page=${page}&amp;limit=${pageSize}`);
         if (response.ok) {
@@ -318,15 +335,15 @@ async function loadJobs(page = <span class="branch-0 cbranch-no" title="branch n
                 updatePaginationControls(page, data.totalPages);
             } else <span class="missing-if-branch" title="else path not taken" >E</span>{
 <span class="cstat-no" title="statement not covered" >                console.error("Invalid response structure:", data);</span>
-<span class="cstat-no" title="statement not covered" >                displayJobs([]); </span>// Show no jobs if structure is invalid
+<span class="cstat-no" title="statement not covered" >                displayJobs([]); </span>// Show "No job listings found" for invalid structure
             }
         } else <span class="missing-if-branch" title="else path not taken" >E</span>{
 <span class="cstat-no" title="statement not covered" >            console.error("Error loading jobs:", response.statusText);</span>
-<span class="cstat-no" title="statement not covered" >            displayJobs([]);</span>
+<span class="cstat-no" title="statement not covered" >            displayJobs([]); </span>// Show "No job listings found" for server errors
         }
     } catch (error) {
         console.error("Error fetching jobs:", error);
-        displayJobs([]); // Show an empty result if there's an error
+        displayJobs([]); // Show "No job listings found" for network errors
     }
 }
 &nbsp;
@@ -335,11 +352,11 @@ async function searchJobs() {
     const location = document.getElementById("location").value.trim();
 &nbsp;
     const jobListings = document.getElementById('job-listings');
-    jobListings.innerHTML = ''; // Clear the UI before starting the search
+    jobListings.innerHTML = '&lt;p&gt;Searching...&lt;/p&gt;'; // Temporary searching indicator
 &nbsp;
     if (!keyword &amp;&amp; !location) {
-        // Show alert if no input is provided
-        alert("Please enter a keyword or location.");
+        alert("Please enter a keyword or location."); // Alert for empty search fields
+        jobListings.innerHTML = '&lt;p&gt;No job listings found.&lt;/p&gt;'; // Reset UI
         return;
     }
 &nbsp;
@@ -349,19 +366,18 @@ async function searchJobs() {
 &nbsp;
         if (response.ok) {
             const data = await response.json();
-&nbsp;
             if (data.jobs &amp;&amp; data.jobs.length &gt; 0) {
-                displayJobs(data.jobs); // Display jobs if found
+                displayJobs(data.jobs);
             } else {
-                displayJobs([]); // Pass empty array to show "No job listings found."
+                displayJobs([]); // Show "No job listings found" for empty results
             }
         } else {
             console.error("Error searching jobs:", response.statusText);
-            displayJobs([]); // Show empty results for non-200 responses
+            displayJobs([]); // Show "No job listings found" for server errors
         }
     } catch (error) {
 <span class="cstat-no" title="statement not covered" >        console.error("Error fetching jobs:", error);</span>
-<span class="cstat-no" title="statement not covered" >        displayJobs([]); </span>// Show empty results for fetch errors
+<span class="cstat-no" title="statement not covered" >        displayJobs([]); </span>// Show "No job listings found" for network errors
     }
 }
 &nbsp;
@@ -370,12 +386,10 @@ function displayJobs(jobs) {
     jobListings.innerHTML = ''; // Clear previous listings
 &nbsp;
     if (!jobs || jobs.length === 0) {
-        // Show "No job listings found." if no jobs exist
-        jobListings.innerHTML = '&lt;p&gt;No job listings found.&lt;/p&gt;';
+        jobListings.innerHTML = '&lt;p&gt;No job listings found.&lt;/p&gt;'; // Show "No job listings found" if empty
         return;
     }
 &nbsp;
-    // Populate job listings with data
     jobs.forEach(job =&gt; {
         const jobCard = document.createElement('div');
         jobCard.classList.add('job-listing');
@@ -397,12 +411,11 @@ function displayJobs(jobs) {
     });
 }
 &nbsp;
-&nbsp;
 function updatePaginationControls(page, totalPages) {
     const paginationControls = document.getElementById("pagination-controls");
     paginationControls.innerHTML = ''; // Clear existing controls
 &nbsp;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (totalPages &gt; 1) {
+    if (totalPages &gt; 1) {
         const prevButton = document.createElement("button");
         prevButton.textContent = "Previous";
         prevButton.disabled = page === 1;
@@ -422,10 +435,18 @@ function updatePaginationControls(page, totalPages) {
         paginationControls.appendChild(prevButton);
         paginationControls.appendChild(document.createTextNode(` Page ${page} of ${totalPages} `));
         paginationControls.appendChild(nextButton);
+    } else <span class="missing-if-branch" title="else path not taken" >E</span>{
+        // Clear pagination if there's only one page
+<span class="cstat-no" title="statement not covered" >        paginationControls.innerHTML = '&lt;p&gt;No additional pages.&lt;/p&gt;';</span>
     }
 }
 &nbsp;
-window.onload = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >loadJobs(currentPage);</span>
+window.onload = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    loadJobs(currentPage);</span>
+&nbsp;
+    // Add event listeners for testing edge cases
+<span class="cstat-no" title="statement not covered" >    document.getElementById("search-button").onclick = searchJobs;</span>
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -433,7 +454,7 @@ window.onload = <span class="fstat-no" title="function not covered" >()</span> =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-01-08T16:35:03.766Z
+                at 2025-01-08T19:02:00.480Z
             </div>
         <script src="prettify.js"></script>
         <script>

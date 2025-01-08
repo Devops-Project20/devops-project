@@ -2,6 +2,9 @@ let currentPage = 1; // Current page for pagination
 const pageSize = 10; // Default number of jobs per page
 
 async function loadJobs(page = 1) {
+    const jobListings = document.getElementById('job-listings');
+    jobListings.innerHTML = '<p>Loading...</p>'; // Temporary loading indicator
+
     try {
         const response = await fetch(`/view-jobs?page=${page}&limit=${pageSize}`);
         if (response.ok) {
@@ -11,15 +14,15 @@ async function loadJobs(page = 1) {
                 updatePaginationControls(page, data.totalPages);
             } else {
                 console.error("Invalid response structure:", data);
-                displayJobs([]); // Show no jobs if structure is invalid
+                displayJobs([]); // Show "No job listings found" for invalid structure
             }
         } else {
             console.error("Error loading jobs:", response.statusText);
-            displayJobs([]);
+            displayJobs([]); // Show "No job listings found" for server errors
         }
     } catch (error) {
         console.error("Error fetching jobs:", error);
-        displayJobs([]); // Show an empty result if there's an error
+        displayJobs([]); // Show "No job listings found" for network errors
     }
 }
 
@@ -28,11 +31,11 @@ async function searchJobs() {
     const location = document.getElementById("location").value.trim();
 
     const jobListings = document.getElementById('job-listings');
-    jobListings.innerHTML = ''; // Clear the UI before starting the search
+    jobListings.innerHTML = '<p>Searching...</p>'; // Temporary searching indicator
 
     if (!keyword && !location) {
-        // Show alert if no input is provided
-        alert("Please enter a keyword or location.");
+        alert("Please enter a keyword or location."); // Alert for empty search fields
+        jobListings.innerHTML = '<p>No job listings found.</p>'; // Reset UI
         return;
     }
 
@@ -42,19 +45,18 @@ async function searchJobs() {
 
         if (response.ok) {
             const data = await response.json();
-
             if (data.jobs && data.jobs.length > 0) {
-                displayJobs(data.jobs); // Display jobs if found
+                displayJobs(data.jobs);
             } else {
-                displayJobs([]); // Pass empty array to show "No job listings found."
+                displayJobs([]); // Show "No job listings found" for empty results
             }
         } else {
             console.error("Error searching jobs:", response.statusText);
-            displayJobs([]); // Show empty results for non-200 responses
+            displayJobs([]); // Show "No job listings found" for server errors
         }
     } catch (error) {
         console.error("Error fetching jobs:", error);
-        displayJobs([]); // Show empty results for fetch errors
+        displayJobs([]); // Show "No job listings found" for network errors
     }
 }
 
@@ -63,12 +65,10 @@ function displayJobs(jobs) {
     jobListings.innerHTML = ''; // Clear previous listings
 
     if (!jobs || jobs.length === 0) {
-        // Show "No job listings found." if no jobs exist
-        jobListings.innerHTML = '<p>No job listings found.</p>';
+        jobListings.innerHTML = '<p>No job listings found.</p>'; // Show "No job listings found" if empty
         return;
     }
 
-    // Populate job listings with data
     jobs.forEach(job => {
         const jobCard = document.createElement('div');
         jobCard.classList.add('job-listing');
@@ -89,7 +89,6 @@ function displayJobs(jobs) {
         jobListings.appendChild(jobCard);
     });
 }
-
 
 function updatePaginationControls(page, totalPages) {
     const paginationControls = document.getElementById("pagination-controls");
@@ -115,7 +114,15 @@ function updatePaginationControls(page, totalPages) {
         paginationControls.appendChild(prevButton);
         paginationControls.appendChild(document.createTextNode(` Page ${page} of ${totalPages} `));
         paginationControls.appendChild(nextButton);
+    } else {
+        // Clear pagination if there's only one page
+        paginationControls.innerHTML = '<p>No additional pages.</p>';
     }
 }
 
-window.onload = () => loadJobs(currentPage);
+window.onload = () => {
+    loadJobs(currentPage);
+
+    // Add event listeners for testing edge cases
+    document.getElementById("search-button").onclick = searchJobs;
+};
