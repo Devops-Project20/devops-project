@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1736362920110" clover="3.2.0">
-  <project timestamp="1736362920110" name="All files">
-    <metrics statements="156" coveredstatements="62" conditionals="50" coveredconditionals="20" methods="16" coveredmethods="6" elements="222" coveredelements="88" complexity="0" loc="156" ncloc="156" packages="1" files="4" classes="4"/>
+<coverage generated="1736368013551" clover="3.2.0">
+  <project timestamp="1736368013551" name="All files">
+    <metrics statements="122" coveredstatements="39" conditionals="46" coveredconditionals="17" methods="15" coveredmethods="7" elements="183" coveredelements="63" complexity="0" loc="122" ncloc="122" packages="1" files="4" classes="4"/>
     <file name="applyJob.js" path="C:\Users\darry\Documents\DVOPS_Projects\devops-project\public\js\applyJob.js">
       <metrics statements="22" coveredstatements="1" conditionals="9" coveredconditionals="0" methods="2" coveredmethods="0"/>
       <line num="2" count="0" type="stmt"/>
@@ -56,76 +56,42 @@
       <line num="40" count="12" type="stmt"/>
     </file>
     <file name="searchJob.js" path="C:\Users\darry\Documents\DVOPS_Projects\devops-project\public\js\searchJob.js">
-      <metrics statements="69" coveredstatements="56" conditionals="23" coveredconditionals="19" methods="8" coveredmethods="5"/>
+      <metrics statements="35" coveredstatements="33" conditionals="19" coveredconditionals="16" methods="7" coveredmethods="6"/>
       <line num="1" count="12" type="stmt"/>
       <line num="2" count="12" type="stmt"/>
       <line num="5" count="12" type="stmt"/>
       <line num="6" count="12" type="stmt"/>
-      <line num="8" count="12" type="stmt"/>
-      <line num="9" count="12" type="stmt"/>
-      <line num="10" count="11" type="cond" truecount="1" falsecount="1"/>
-      <line num="11" count="11" type="stmt"/>
-      <line num="12" count="11" type="cond" truecount="3" falsecount="1"/>
-      <line num="13" count="11" type="stmt"/>
-      <line num="14" count="11" type="stmt"/>
-      <line num="16" count="0" type="stmt"/>
-      <line num="17" count="0" type="stmt"/>
-      <line num="20" count="0" type="stmt"/>
-      <line num="21" count="0" type="stmt"/>
-      <line num="24" count="1" type="stmt"/>
-      <line num="25" count="1" type="stmt"/>
-      <line num="30" count="10" type="stmt"/>
-      <line num="31" count="10" type="stmt"/>
-      <line num="33" count="10" type="stmt"/>
-      <line num="34" count="10" type="stmt"/>
-      <line num="36" count="10" type="cond" truecount="4" falsecount="0"/>
-      <line num="37" count="1" type="stmt"/>
-      <line num="38" count="1" type="stmt"/>
-      <line num="39" count="1" type="stmt"/>
-      <line num="42" count="9" type="stmt"/>
-      <line num="43" count="9" type="stmt"/>
-      <line num="44" count="9" type="stmt"/>
-      <line num="46" count="9" type="cond" truecount="2" falsecount="0"/>
-      <line num="47" count="8" type="stmt"/>
-      <line num="48" count="8" type="cond" truecount="4" falsecount="0"/>
-      <line num="49" count="4" type="stmt"/>
-      <line num="51" count="4" type="stmt"/>
-      <line num="54" count="1" type="stmt"/>
-      <line num="55" count="1" type="stmt"/>
-      <line num="58" count="0" type="stmt"/>
-      <line num="59" count="0" type="stmt"/>
-      <line num="64" count="21" type="stmt"/>
-      <line num="65" count="21" type="stmt"/>
-      <line num="67" count="21" type="cond" truecount="4" falsecount="0"/>
-      <line num="68" count="6" type="stmt"/>
-      <line num="69" count="6" type="stmt"/>
-      <line num="72" count="15" type="stmt"/>
-      <line num="73" count="118" type="stmt"/>
-      <line num="74" count="118" type="stmt"/>
-      <line num="75" count="118" type="stmt"/>
-      <line num="89" count="118" type="stmt"/>
-      <line num="94" count="11" type="stmt"/>
-      <line num="95" count="11" type="stmt"/>
-      <line num="97" count="11" type="cond" truecount="1" falsecount="1"/>
-      <line num="98" count="11" type="stmt"/>
-      <line num="99" count="11" type="stmt"/>
-      <line num="100" count="11" type="stmt"/>
-      <line num="101" count="11" type="stmt"/>
-      <line num="102" count="0" type="stmt"/>
-      <line num="103" count="0" type="stmt"/>
-      <line num="106" count="11" type="stmt"/>
-      <line num="107" count="11" type="stmt"/>
-      <line num="108" count="11" type="stmt"/>
-      <line num="109" count="11" type="stmt"/>
-      <line num="110" count="0" type="stmt"/>
-      <line num="111" count="0" type="stmt"/>
-      <line num="114" count="11" type="stmt"/>
-      <line num="115" count="11" type="stmt"/>
-      <line num="116" count="11" type="stmt"/>
-      <line num="119" count="0" type="stmt"/>
-      <line num="123" count="12" type="stmt"/>
-      <line num="124" count="0" type="stmt"/>
-      <line num="127" count="0" type="stmt"/>
+      <line num="10" count="10" type="stmt"/>
+      <line num="11" count="10" type="stmt"/>
+      <line num="13" count="10" type="cond" truecount="4" falsecount="0"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="19" count="9" type="stmt"/>
+      <line num="20" count="9" type="stmt"/>
+      <line num="21" count="9" type="stmt"/>
+      <line num="25" count="21" type="stmt"/>
+      <line num="26" count="21" type="stmt"/>
+      <line num="27" count="20" type="cond" truecount="2" falsecount="0"/>
+      <line num="28" count="20" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
+      <line num="31" count="1" type="stmt"/>
+      <line num="36" count="22" type="stmt"/>
+      <line num="37" count="22" type="cond" truecount="4" falsecount="0"/>
+      <line num="38" count="7" type="stmt"/>
+      <line num="39" count="7" type="stmt"/>
+      <line num="40" count="7" type="stmt"/>
+      <line num="44" count="15" type="stmt"/>
+      <line num="45" count="118" type="stmt"/>
+      <line num="63" count="15" type="stmt"/>
+      <line num="67" count="22" type="stmt"/>
+      <line num="68" count="22" type="cond" truecount="2" falsecount="0"/>
+      <line num="69" count="11" type="stmt"/>
+      <line num="70" count="11" type="stmt"/>
+      <line num="73" count="11" type="stmt"/>
+      <line num="80" count="12" type="stmt"/>
+      <line num="81" count="0" type="stmt"/>
+      <line num="82" count="0" type="stmt"/>
     </file>
     <file name="updateJob.js" path="C:\Users\darry\Documents\DVOPS_Projects\devops-project\public\js\updateJob.js">
       <metrics statements="40" coveredstatements="4" conditionals="16" coveredconditionals="1" methods="4" coveredmethods="1"/>
