@@ -2,120 +2,82 @@ let currentPage = 1; // Current page for pagination
 const pageSize = 10; // Default number of jobs per page
 
 async function loadJobs(page = 1) {
-    try {
-        const response = await fetch(`/view-jobs?page=${page}&limit=${pageSize}`);
-        if (response.ok) {
-            const data = await response.json();
-            if (data.jobs && data.totalPages !== undefined) {
-                displayJobs(data.jobs);
-                updatePaginationControls(page, data.totalPages);
-            } else {
-                console.error("Invalid response structure:", data);
-                displayJobs([]); // Show no jobs if structure is invalid
-            }
-        } else {
-            console.error("Error loading jobs:", response.statusText);
-            displayJobs([]);
-        }
-    } catch (error) {
-        console.error("Error fetching jobs:", error);
-        displayJobs([]); // Show an empty result if there's an error
-    }
+    const url = `/view-jobs?page=${page}&limit=${pageSize}`;
+    handleFetch(url, displayJobs, { totalPages: 1 });
 }
 
 async function searchJobs() {
     const keyword = document.getElementById("keyword").value.trim();
     const location = document.getElementById("location").value.trim();
 
-    const jobListings = document.getElementById('job-listings');
-    jobListings.innerHTML = ''; // Clear the UI before starting the search
-
     if (!keyword && !location) {
-        // Show alert if no input is provided
-        alert("Please enter a keyword or location.");
+        alert("Please enter a keyword or location."); // Alert for empty search fields
+        displayJobs([]); // Show "No job listings found"
         return;
     }
 
+    const query = new URLSearchParams({ keyword, location }).toString();
+    const url = `/search-jobs?${query}`;
+    handleFetch(url, displayJobs);
+}
+
+async function handleFetch(url, callback, fallbackData = { jobs: [] }) {
     try {
-        const query = new URLSearchParams({ keyword, location }).toString();
-        const response = await fetch(`/search-jobs?${query}`, { method: "GET" });
-
-        if (response.ok) {
-            const data = await response.json();
-
-            if (data.jobs && data.jobs.length > 0) {
-                displayJobs(data.jobs); // Display jobs if found
-            } else {
-                displayJobs([]); // Pass empty array to show "No job listings found."
-            }
-        } else {
-            console.error("Error searching jobs:", response.statusText);
-            displayJobs([]); // Show empty results for non-200 responses
-        }
+        const response = await fetch(url);
+        const data = response.ok ? await response.json() : fallbackData;
+        callback(data.jobs, data.totalPages);
     } catch (error) {
-        console.error("Error fetching jobs:", error);
-        displayJobs([]); // Show empty results for fetch errors
+        console.error("Fetch Error:", error); // Log the error for debugging
+        callback([]); // Handle network errors
     }
 }
 
-function displayJobs(jobs) {
-    const jobListings = document.getElementById('job-listings');
-    jobListings.innerHTML = ''; // Clear previous listings
-
+function displayJobs(jobs, totalPages = 1) {
+    const jobListings = document.getElementById("job-listings");
     if (!jobs || jobs.length === 0) {
-        // Show "No job listings found." if no jobs exist
         jobListings.innerHTML = '<p>No job listings found.</p>';
+        updatePaginationControls(1, 1); // Reset pagination
         return;
     }
 
-    // Populate job listings with data
-    jobs.forEach(job => {
-        const jobCard = document.createElement('div');
-        jobCard.classList.add('job-listing');
-        jobCard.innerHTML = `
-            <div class="job-header">
-                <h2>${job.name}</h2>
-                <div class="job-actions">
-                    <button onclick="applyJob('${job._id}')">Apply Job</button>
-                    <button onclick="updateJob('${job._id}')">Update Job Listing</button>
+    // Generate job listings HTML
+    jobListings.innerHTML = jobs
+        .map(job => `
+            <div class="job-listing">
+                <div class="job-header">
+                    <h2>${job.name}</h2>
+                    <div class="job-actions">
+                        <button onclick="applyJob('${job._id}')">Apply Job</button>
+                        <button onclick="updateJob('${job._id}')">Update Job Listing</button>
+                    </div>
                 </div>
+                <p class="location">Location: ${job.location}</p>
+                <p class="company">Company: ${job.companyName}</p>
+                <p class="salary">Salary: $${job.salary}</p>
+                <p class="email">Contact: <a href="mailto:${job.companyEmail}">${job.companyEmail}</a></p>
+                <p>${job.description}</p>
             </div>
-            <p class="location">Location: ${job.location}</p>
-            <p class="company">Company: ${job.companyName}</p>
-            <p class="salary">Salary: $${job.salary}</p>
-            <p class="email">Contact: <a href="mailto:${job.companyEmail}">${job.companyEmail}</a></p>
-            <p>${job.description}</p>
-        `;
-        jobListings.appendChild(jobCard);
-    });
-}
+        `)
+        .join('');
 
+    updatePaginationControls(currentPage, totalPages);
+}
 
 function updatePaginationControls(page, totalPages) {
     const paginationControls = document.getElementById("pagination-controls");
-    paginationControls.innerHTML = ''; // Clear existing controls
-
-    if (totalPages > 1) {
-        const prevButton = document.createElement("button");
-        prevButton.textContent = "Previous";
-        prevButton.disabled = page === 1;
-        prevButton.onclick = () => {
-            currentPage--;
-            loadJobs(currentPage);
-        };
-
-        const nextButton = document.createElement("button");
-        nextButton.textContent = "Next";
-        nextButton.disabled = page === totalPages;
-        nextButton.onclick = () => {
-            currentPage++;
-            loadJobs(currentPage);
-        };
-
-        paginationControls.appendChild(prevButton);
-        paginationControls.appendChild(document.createTextNode(` Page ${page} of ${totalPages} `));
-        paginationControls.appendChild(nextButton);
+    if (totalPages <= 1) {
+        paginationControls.innerHTML = ''; // Clear pagination if there's only one page
+        return;
     }
+
+    paginationControls.innerHTML = `
+        <button ${page === 1 ? 'disabled' : ''} onclick="loadJobs(--currentPage)">Previous</button>
+        Page ${page} of ${totalPages}
+        <button ${page === totalPages ? 'disabled' : ''} onclick="loadJobs(++currentPage)">Next</button>
+    `;
 }
 
-window.onload = () => loadJobs(currentPage);
+window.onload = () => {
+    loadJobs(currentPage);
+    document.getElementById("search-button").onclick = searchJobs;
+};
