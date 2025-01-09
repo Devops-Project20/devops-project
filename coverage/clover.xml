@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1736368013551" clover="3.2.0">
-  <project timestamp="1736368013551" name="All files">
+<coverage generated="1736410472241" clover="3.2.0">
+  <project timestamp="1736410472242" name="All files">
     <metrics statements="122" coveredstatements="39" conditionals="46" coveredconditionals="17" methods="15" coveredmethods="7" elements="183" coveredelements="63" complexity="0" loc="122" ncloc="122" packages="1" files="4" classes="4"/>
     <file name="applyJob.js" path="C:\Users\darry\Documents\DVOPS_Projects\devops-project\public\js\applyJob.js">
       <metrics statements="22" coveredstatements="1" conditionals="9" coveredconditionals="0" methods="2" coveredmethods="0"/>
@@ -72,22 +72,22 @@
       <line num="21" count="9" type="stmt"/>
       <line num="25" count="21" type="stmt"/>
       <line num="26" count="21" type="stmt"/>
-      <line num="27" count="20" type="cond" truecount="2" falsecount="0"/>
-      <line num="28" count="20" type="stmt"/>
+      <line num="27" count="19" type="cond" truecount="2" falsecount="0"/>
+      <line num="28" count="19" type="stmt"/>
       <line num="30" count="1" type="stmt"/>
       <line num="31" count="1" type="stmt"/>
-      <line num="36" count="22" type="stmt"/>
-      <line num="37" count="22" type="cond" truecount="4" falsecount="0"/>
+      <line num="36" count="21" type="stmt"/>
+      <line num="37" count="21" type="cond" truecount="4" falsecount="0"/>
       <line num="38" count="7" type="stmt"/>
       <line num="39" count="7" type="stmt"/>
       <line num="40" count="7" type="stmt"/>
-      <line num="44" count="15" type="stmt"/>
-      <line num="45" count="118" type="stmt"/>
-      <line num="63" count="15" type="stmt"/>
-      <line num="67" count="22" type="stmt"/>
-      <line num="68" count="22" type="cond" truecount="2" falsecount="0"/>
-      <line num="69" count="11" type="stmt"/>
-      <line num="70" count="11" type="stmt"/>
+      <line num="44" count="14" type="stmt"/>
+      <line num="45" count="116" type="stmt"/>
+      <line num="63" count="14" type="stmt"/>
+      <line num="67" count="21" type="stmt"/>
+      <line num="68" count="21" type="cond" truecount="2" falsecount="0"/>
+      <line num="69" count="10" type="stmt"/>
+      <line num="70" count="10" type="stmt"/>
       <line num="73" count="11" type="stmt"/>
       <line num="80" count="12" type="stmt"/>
       <line num="81" count="0" type="stmt"/>
