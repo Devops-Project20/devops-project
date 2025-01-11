@@ -14,24 +14,25 @@ pipeline {
         stage('Run Backend and Frontend Tests') {
             steps {
                 bat '''
-                echo "Starting npm install..."
+                echo Starting npm install...
                 npm install
-                echo "npm install completed."
+                echo npm install completed.
 
-                echo "Running backend tests..."
+                echo Running backend tests...
                 npm run backend-test
-                echo "Backend tests completed."
+                echo Backend tests completed.
 
-                echo "Running frontend instrumentation..."
+                echo Running frontend instrumentation...
                 npm run frontend-instrument
-                echo "Frontend instrumentation completed."
+                echo Frontend instrumentation completed.
 
-                echo "Running frontend tests..."
+                echo Running frontend tests...
                 npm run frontend-test
-                echo "Frontend tests completed."
+                echo Frontend tests completed.
                 '''
             }
         }
+
         stage('Build and Push Docker Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
