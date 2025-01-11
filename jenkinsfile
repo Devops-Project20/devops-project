@@ -21,12 +21,11 @@ pipeline {
                 '''
             }
         }
-        withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-            stage('Build and Push Docker Image') {
-                steps {
-                    // Build and push Docker image using docker-compose.yaml
+        stage('Build and Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     bat '''
-                    echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+                    docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%
                     docker-compose build
                     docker-compose push
                     '''
