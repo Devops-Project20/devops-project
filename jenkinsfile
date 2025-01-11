@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Run Backend and Frontend Tests') {
             steps {
-                sh '''
+                bat '''
                 npm install
                 npm run backend-test
                 npm run frontend-instrument
@@ -20,7 +20,7 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 // Build and push Docker image using docker-compose.yaml
-                sh '''
+                bat '''
                 docker login -u sakinesorra -p Baobaokoh1
                 docker-compose build
                 docker-compose push
@@ -30,7 +30,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 // Apply Kubernetes configuration using rms-deployment.yaml and rms-service.yaml
-                sh '''
+                bat '''
                 az login --service-principal -u "e1634f3c-9468-4ee9-bff6-ae3030253069" -p "3u18Q~TX3Dyj47ABH4xuv5y_XLbJSzlZZiuwvadD" --tenant "25a99bf0-8e72-472a-ae50-adfbdf0df6f1"
                 az aks show --resource-group rmsResourceGroup --name rmsAKSCluster -o json >nul 2>nul || az aks create --resource-group rmsResourceGroup --name rmsAKSCluster --node-count 1 --generate-ssh-keys 2>&1
                 az aks get-credentials --resource-group "rmsResourceGroup" --name "rmsAKSCluster" --overwrite-existing --subscription "29e98716-8861-41d1-bdc2-b670c7d43dac"
