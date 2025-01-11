@@ -14,10 +14,21 @@ pipeline {
         stage('Run Backend and Frontend Tests') {
             steps {
                 bat '''
+                echo "Starting npm install..."
                 npm install
+                echo "npm install completed."
+
+                echo "Running backend tests..."
                 npm run backend-test
+                echo "Backend tests completed."
+
+                echo "Running frontend instrumentation..."
                 npm run frontend-instrument
+                echo "Frontend instrumentation completed."
+
+                echo "Running frontend tests..."
                 npm run frontend-test
+                echo "Frontend tests completed."
                 '''
             }
         }
