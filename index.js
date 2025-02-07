@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 require('dotenv').config();
+const logger = require('./logger');
  
 const app = express();
 const PORT = process.env.PORT || 5050;
@@ -9,6 +10,9 @@ const PORT = process.env.PORT || 5050;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("./public"));
+
+const statusMonitor = require('express-status-monitor');
+app.use(statusMonitor());
  
 // Connect to MongoDB
 mongoose.connect(process.env.DB_CONNECT)
@@ -41,6 +45,8 @@ const server = app.listen(PORT, function () {
     const address = server.address();
     const baseUrl = `http://${address.address === "::" ? 'localhost' : address.address}:${address.port}`;
     console.log(`DevOps project at: ${baseUrl}`);
+    logger.info(`Demo project at: ${baseUrl}!`);
+    logger.error(`Example or error log`)
 });
  
 module.exports = { app, server };
