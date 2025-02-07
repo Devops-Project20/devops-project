@@ -3,7 +3,7 @@ services:
    build:
      context: .
      dockerfile: Dockerfile 
-   image: sakinesorra/image1-docker-img:v2
+   image: sakinesorra/image1-docker-img:v4
    container_name: proj-docker-container
    ports:
      - "8000:5050"
